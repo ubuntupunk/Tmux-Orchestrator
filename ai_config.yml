@@ -1,0 +1,62 @@
+# AI Provider Configuration for Tmux Orchestrator
+# This file configures which AI providers to use for different sessions
+
+# Default provider when no specific configuration exists
+default_provider: claude
+
+# Provider-specific configurations
+providers:
+  claude:
+    type: interactive
+    command: null  # Uses tmux send-keys directly
+    options: {}
+    
+  rovodev:
+    type: cli
+    command: acli rovodev run
+    options:
+      shadow: false      # Enable shadow mode (temporary workspace clone)
+      verbose: false     # Enable verbose tool output
+      yolo: false        # Run without confirmation (use with caution!)
+      restore: false     # Continue last session if available
+      
+  gemini:
+    type: cli
+    command: gemini
+    options:
+      model: gemini-2.5-pro  # AI model to use
+      sandbox: false         # Run in sandbox mode
+      all_files: false       # Include all files in context
+      yolo: false           # Auto-accept all actions
+
+# Session-specific provider configurations
+# Format: "session_name:window_index"
+sessions:
+  # Example configurations:
+  # "project-main:0":
+  #   provider: claude
+  #   options: {}
+  # 
+  # "ai-dev:1":
+  #   provider: rovodev
+  #   options:
+  #     shadow: true
+  #     verbose: true
+  # 
+  # "research:2":
+  #   provider: gemini
+  #   options:
+  #     model: gemini-2.5-pro
+  #     all_files: true
+
+# Global settings
+settings:
+  # Automatically detect provider based on running processes
+  auto_detect: false
+  
+  # Fallback behavior when provider fails
+  fallback_to_claude: true
+  
+  # Logging
+  log_commands: true
+  log_file: ai_orchestrator.log
