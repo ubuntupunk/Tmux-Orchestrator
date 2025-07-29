@@ -1,6 +1,6 @@
-![Orchestrator Hero](/Orchestrator.png)
+![Rovodev Hero](/Orchestrator.png)
 
-**Run AI agents 24/7 while you sleep** - The Tmux Orchestrator enables Claude agents to work autonomously, schedule their own check-ins, and coordinate across multiple projects without human intervention.
+**Run AI agents 24/7 while you sleep** - Rovodev enables Gemini agents to work autonomously, schedule their own check-ins, and coordinate across multiple projects without human intervention.
 
 ## 🤖 Key Capabilities & Autonomous Features
 
@@ -11,11 +11,11 @@
 
 ## 🏗️ Architecture
 
-The Tmux Orchestrator uses a three-tier hierarchy to overcome context window limitations:
+Rovodev uses a three-tier hierarchy to overcome context window limitations:
 
 ```
 ┌─────────────┐
-│ Orchestrator│ ← You interact here
+│ Rovodev     │ ← You interact here
 └──────┬──────┘
        │ Monitors & coordinates
        ▼
@@ -40,7 +40,7 @@ The Tmux Orchestrator uses a three-tier hierarchy to overcome context window lim
 
 ### Project Manager Coordination
 ![Initiate Project Manager](Examples/Initiate%20Project%20Manager.png)
-*The orchestrator creating and briefing a new project manager agent*
+*Rovodev creating and briefing a new project manager agent*
 
 ### Status Reports & Monitoring
 ![Status Reports](Examples/Status%20reports.png)
@@ -79,7 +79,7 @@ EOF
 tmux new-session -s my-project
 
 # 3. Start project manager in window 0
-claude
+gemini
 
 # 4. Give PM the spec and let it create an engineer
 "You are a Project Manager. Read project_spec.md and create an engineer 
@@ -89,15 +89,15 @@ in window 1 to implement it. Schedule check-ins every 30 minutes."
 ./schedule_with_note.sh 30 "Check PM progress on auth system"
 ```
 
-### Option 2: Full Orchestrator Setup
+### Option 2: Full Rovodev Setup
 
 ```bash
-# Start the orchestrator
+# Start Rovodev
 tmux new-session -s orchestrator
-claude
+gemini
 
 # Give it your projects
-"You are the Orchestrator. Set up project managers for:
+"You are Rovodev. Set up project managers for:
 1. Frontend (React app) - Add dashboard charts
 2. Backend (FastAPI) - Optimize database queries
 Schedule yourself to check in every hour."
@@ -113,7 +113,7 @@ Agents can schedule their own check-ins using:
 
 ### 👥 Multi-Agent Coordination
 - Project managers communicate with engineers
-- Orchestrator monitors all project managers
+- Rovodev monitors all project managers
 - Cross-project knowledge sharing
 
 ### 💾 Automatic Git Backups
@@ -190,21 +190,21 @@ SUCCESS CRITERIA:
 Tmux (terminal multiplexer) is the key enabler because:
 - It persists terminal sessions even when disconnected
 - Allows multiple windows/panes in one session
-- Claude runs in the terminal, so it can control other Claude instances
+- Gemini runs in the terminal, so it can control other Gemini instances
 - Commands can be sent programmatically to any window
 
 ### 💬 Simplified Agent Communication
 
-We now use the `send-claude-message.sh` script for all agent communication:
+We now use the `send-gemini-message.sh` script for all agent communication:
 
 ```bash
-# Send message to any Claude agent
-./send-claude-message.sh session:window "Your message here"
+# Send message to any Gemini agent
+./send-gemini-message.sh session:window "Your message here"
 
 # Examples:
-./send-claude-message.sh frontend:0 "What's your progress on the login form?"
-./send-claude-message.sh backend:1 "The API endpoint /api/users is returning 404"
-./send-claude-message.sh project-manager:0 "Please coordinate with the QA team"
+./send-gemini-message.sh frontend:0 "What's your progress on the login form?"
+./send-gemini-message.sh backend:1 "The API endpoint /api/users is returning 404"
+./send-gemini-message.sh project-manager:0 "Please coordinate with the QA team"
 ```
 
 The script handles all timing complexities automatically, making agent communication reliable and consistent.
@@ -217,7 +217,7 @@ The script handles all timing complexities automatically, making agent communica
 ./schedule_with_note.sh 120 "Full system check, rotate tasks if needed"
 ```
 
-**Important**: The orchestrator needs to know which tmux window it's running in to schedule its own check-ins correctly. If scheduling isn't working, verify the orchestrator knows its current window with:
+**Important**: Rovodev needs to know which tmux window it's running in to schedule its own check-ins correctly. If scheduling isn't working, verify Rovodev knows its current window with:
 ```bash
 echo "Current window: $(tmux display-message -p "#{session_name}:#{window_index}")"
 ```
@@ -226,7 +226,7 @@ echo "Current window: $(tmux display-message -p "#{session_name}:#{window_index}
 
 ### Multi-Project Orchestration
 ```bash
-# Start orchestrator
+# Start Rovodev
 tmux new-session -s orchestrator
 
 # Create project managers for each project
@@ -235,30 +235,30 @@ tmux new-window -n backend-pm
 tmux new-window -n mobile-pm
 
 # Each PM manages their own engineers
-# Orchestrator coordinates between PMs
+# Rovodev coordinates between PMs
 ```
 
 ### Cross-Project Intelligence
-The orchestrator can share insights between projects:
+Rovodev can share insights between projects:
 - "Frontend is using /api/v2/users, update backend accordingly"
 - "Authentication is working in Project A, use same pattern in Project B"
 - "Performance issue found in shared library, fix across all projects"
 
 ## 📚 Core Files
 
-- `send-claude-message.sh` - Simplified agent communication script
+- `send-gemini-message.sh` - Simplified agent communication script
 - `schedule_with_note.sh` - Self-scheduling functionality
 - `tmux_utils.py` - Tmux interaction utilities
-- `CLAUDE.md` - Agent behavior instructions
+- `GEMINI.md` - Agent behavior instructions
 - `LEARNINGS.md` - Accumulated knowledge base
 
 ## 🤝 Contributing & Optimization
 
-The orchestrator evolves through community discoveries and optimizations. When contributing:
+Rovodev evolves through community discoveries and optimizations. When contributing:
 
-1. Document new tmux commands and patterns in CLAUDE.md
+1. Document new tmux commands and patterns in GEMINI.md
 2. Share novel use cases and agent coordination strategies
-3. Submit optimizations for claudes synchronization
+3. Submit optimizations for Gemini synchronization
 4. Keep command reference up-to-date with latest findings
 5. Test improvements across multiple sessions and scenarios
 

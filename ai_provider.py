@@ -254,18 +254,22 @@ class AIOrchestrator:
             print(f"Error starting {provider.value} session: {e}")
             return False
 
-if __name__ == "__main__":
-    import sys
-    
-    if len(sys.argv) < 4:
+
+import sys
+
+def main(argv=None):
+    if argv is None:
+        argv = sys.argv
+
+    if len(argv) < 4:
         print("Usage: python3 ai_provider.py <session:window> <message> [provider]")
         print("Example: python3 ai_provider.py project:0 'Hello AI!' rovodev")
         sys.exit(1)
     
     # Parse arguments
-    session_window = sys.argv[1]
-    message = sys.argv[2]
-    provider = sys.argv[3] if len(sys.argv) > 3 else None
+    session_window = argv[1]
+    message = argv[2]
+    provider = argv[3] if len(argv) > 3 else None
     
     try:
         session_name, window_index = session_window.split(':')
@@ -289,3 +293,6 @@ if __name__ == "__main__":
     # Send message
     success = orchestrator.send_message(session_name, window_index, message, provider_enum)
     sys.exit(0 if success else 1)
+
+if __name__ == "__main__":
+    main()
